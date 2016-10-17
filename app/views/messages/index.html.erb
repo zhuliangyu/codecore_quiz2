@@ -1,0 +1,44 @@
+<h1>Messages#index</h1>
+
+
+<%= form_tag(search_path) do %>
+    <%= text_field_tag "title",@word %>
+    <%= submit_tag "search" %>
+
+<% end %>
+
+<table>
+
+
+  <tr>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Department</th>
+    <th>Message</th>
+    <th>Action</th>
+  </tr>
+  <% @messages.each do |elem| %>
+
+      <tr>
+        <td><%= elem.name %></td>
+        <td><%= elem.email %></td>
+        <td><%= elem.department %></td>
+        <td style="width: 60px"><%= elem.message %></td>
+
+        <td>
+          <%= link_to "edit", edit_message_path(elem) %>
+          <%= link_to "delete", message_path(elem), method: :delete, data: {confirm: "Are you sure"} %>
+
+          <% @key=(elem.status==false ? "None done" : "Done") %>
+          <!--link_to "Profile", controller: "profiles", action: "show", id: @profile-->
+
+          <%= link_to @key, controller: "messages", action: "done", id: elem %>
+
+        </td>
+      </tr>
+
+  <% end %>
+
+</table>
+<%= paginate @messages %>
+
