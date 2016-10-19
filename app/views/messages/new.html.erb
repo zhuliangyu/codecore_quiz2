@@ -1,38 +1,3 @@
 <h1>Messages#new</h1>
 
-<%= form_for @message do |f|%>
-    <div>
-      <%= f.label :name %>
-      <%= f.text_field :name %>
-
-    </div>
-    <div>
-    <%= f.label :email %>
-    <%= f.email_field :email %>
-
-    </div>
-
-    <div>
-      <%= f.label "Department:" %>
-
-      <%= f.radio_button :department,"Sales"  %>Sales
-      <%= f.radio_button :department,"Marketing"  %>Marketing
-      <%= f.radio_button :department,"Technical"  %>Technical
-
-    </div>
-    <%= f.hidden_field :status, :value=>"f" %>
-    <div>
-      Message:
-      <%= f.text_area :message %>
-
-    </div>
-
-
-
-
-
-    <%= submit_tag @button_text %>
-
-
-
-<%end%>
+<%= render "form" %>

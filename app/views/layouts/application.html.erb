@@ -10,8 +10,10 @@
 
   <body>
 
+  <%= flash[:notice] %>
   <%= link_to "New",new_message_path %>
   <%= link_to "List",	messages_path %>
+
 
   <%= yield %>
   </body>

@@ -1,4 +1,7 @@
 class MessagesController < ApplicationController
+  before_action :find,only: [:edit,:update,:delete,:destroy,:done]
+
+
   def index
     # User.order('name DESC')
 
@@ -13,11 +16,18 @@ class MessagesController < ApplicationController
 
   end
 
+  def params_message
+    params.require(:message).permit(:name, :email, :department, :message, :status)
+  end
+
+
   def create
 
 
-    params_message= params.require(:message).permit(:name, :email, :department, :message, :status)
     # Message.new
+    flash[:notice]="create successfully"
+
+
     Message.create(params_message)
     redirect_to messages_path
 
@@ -27,8 +37,13 @@ class MessagesController < ApplicationController
   def show
   end
 
+  def find
+    @message=Message.find params[:id]
+
+  end
+
   def edit
-    @message = Message.find params[:id]
+    # @message = Message.find params[:id]
     @button_text="submit"
     render :new
 
@@ -37,25 +52,25 @@ class MessagesController < ApplicationController
   def update
 
 
-    params_message= params.require(:message).permit(:name, :email, :department, :message, :status)
-    message = Message.find params[:id]
-    message.update(params_message)
+    # params_message= params.require(:message).permit(:name, :email, :department, :message, :status)
+    # message = Message.find params[:id]
+    @message.update(params_message)
     redirect_to messages_path
 
 
   end
 
   def destroy
-    message = Message.find params[:id]
-    message.destroy
+    # message = Message.find params[:id]
+    @message.destroy
     redirect_to messages_path
   end
 
   def done
-    message = Message.find params[:id]
+    # message = Message.find params[:id]
     # Person.update(15, :user_name => 'Samuel', :group => 'expert')
 
-    if message.status==false
+    if @message.status==false
       Message.update(params[:id], :status => true)
     else
       Message.update(params[:id], :status => false)
